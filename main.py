@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle, Arc
 
-# --- 0. BAŞLANGIÇ DEĞERLERİ (PDF Sayfa 1) ---
+# --- 0. BAŞLANGIÇ DEĞERLERİ ---
 # Durum Vektörü x: [Konum_x, Konum_y, Hız_x, Hız_y]
 x_tahmin = np.zeros((4, 1)) 
 P = np.eye(4) * 500  # P_0: Başlangıç hata kovaryansı
@@ -20,7 +20,7 @@ player_x_col, player_y_col = cols[0], cols[1]
 raw_data = df[['Time [s]', player_x_col, player_y_col]].dropna().values
 z_k_list = raw_data[:500, 1:3] * [105, 68] # Metrica verisini saha boyutuna (105x68m) oranlıyoruz
 
-# --- SİSTEM MODELİ (PDF Sayfa 2 & 3) ---
+# --- SİSTEM MODELİ  ---
 # A: Durum Geçiş Matrisi - Sistemin fiziksel dinamiklerini tanımlar
 A = np.array([[1, 0, dt, 0],
               [0, 1, 0, dt],
@@ -42,7 +42,7 @@ hizlar = []
 
 print("Kalman Filtresi Analizi Başlatıldı...")
 
-# --- KALMAN DÖNGÜSÜ (PDF Sayfa 1: Adım I - IV) ---
+# --- KALMAN DÖNGÜSÜ ---
 for z_raw in z_k_list:
     z_k = z_raw.reshape(2, 1) # Güncel ölçüm vektörü
 
@@ -107,4 +107,5 @@ plt.suptitle("Spor Analitiği ve Dinamik Sistem Modelleme: Kalman Filtresi Uygul
 plt.tight_layout(rect=[0, 0.03, 1, 0.95])
 
 print("Analiz Tamamlandı. Grafikler Oluşturuluyor...")
+
 plt.show()
